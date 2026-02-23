@@ -60,8 +60,11 @@ jobs:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         if: contains(join("$COMMIT_MESSAGES"), "#skip"))
         run: echo "skip this one"
-      - name: debug
+      - name: debug join
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo join("$COMMIT_MESSAGES")
-        run: contains(join("$COMMIT_MESSAGES"), "#skip")
+      - name: debug contains
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+        run: echo contains(join("$COMMIT_MESSAGES"), "#skip")
