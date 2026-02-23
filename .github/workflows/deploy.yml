@@ -34,7 +34,7 @@ jobs:
 
   tag_release:
     needs: [deployment_pipeline]
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Bump version and push tag
         if: ${{ github.event_name == 'push' }}
