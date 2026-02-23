@@ -26,4 +26,4 @@ jobs:
       - name: end-2-end
         run: npm run test:e2e
       - name: render deploy
-        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_DEPLOY_HOOK }}?key=${{ secrets.RENDER_API_KEY }}
+        run: curl ${{ secrets.RENDER_DEPLOY_HOOK }}
