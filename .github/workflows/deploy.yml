@@ -49,16 +49,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify Discord success
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_USERNAME: 'AYO PAUSE'
-        uses: Ilshidur/action-discord@master
         if: ${{ needs.deployment_pipeline.result == 'success' && needs.tag_release.result == 'success' }}
-        args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed successfully.'
-      - name: Notify Discord fail
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: 'AYO PAUSE'
         uses: Ilshidur/action-discord@master
+        with:
+          args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed successfully.'
+      - name: Notify Discord fail
         if: ${{ !(needs.deployment_pipeline.result == 'success' && needs.tag_release.result == 'success') }}
-        args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has failed to deploy.'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_USERNAME: 'AYO PAUSE'
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has failed to deploy.'
