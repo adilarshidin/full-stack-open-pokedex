@@ -45,7 +45,7 @@ jobs:
 
   notification:
     needs: [deployment_pipeline, tag_release]
-    if: ${{ always() }}
+    if: ${{ always() && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - name: Notify Discord success
